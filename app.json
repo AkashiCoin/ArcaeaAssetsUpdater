@@ -1,0 +1,8 @@
+{
+    "name": "ArcaeaAssetsUpdater",
+    "description": "Deploy AAU on Heroku.",
+    "keywords": ["Arcaea"],
+    "website": "",
+    "repository": "https://github.com/AkashiCoin/ArcaeaAssetsUpdater",
+    "stack": "container"
+}

@@ -3,4 +3,4 @@ COPY . /app/
 WORKDIR /app
 RUN pip install poetry && poetry install
 EXPOSE 8080
-ENTRYPOINT poetry run python3 ArcaeaAssetsUpdater
+ENTRYPOINT ["poetry","run", "python3", "/app/ArcaeaAssetsUpdater"]

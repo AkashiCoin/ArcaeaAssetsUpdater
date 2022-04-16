@@ -22,9 +22,16 @@ if platform == "win32":
 class ArcaeaAssetsUpdater:
     work_path = path.abspath(path.join(path.dirname(__file__), "data"))
     version_info = path.join(work_path, "version.json")
+    songlist_info = path.join(work_path, "songlist.json")
 
     def __init__(self) -> None:
         pass
+
+    @staticmethod
+    def get_song_info(song_id: str):
+        with open(ArcaeaAssetsUpdater.songlist_info, "r") as f:
+            song_info = json.loads(f.read())
+            return song_info[song_id] if song_id in song_info else None
 
     @staticmethod
     def get_local_version_info():
@@ -58,6 +65,18 @@ class ArcaeaAssetsUpdater:
                         return True
 
     @staticmethod
+    async def update_songlist():
+        with open(path.join(ArcaeaAssetsUpdater.work_path, "assets", "songs", "songlist"), "r",encoding="utf-8") as slst:
+            slst = json.loads(slst.read())["songs"]
+            songlist: dict ={}
+            for song_info in slst:
+                song_id = song_info["id"]
+                songlist[f"{song_id}"] = song_info
+            with open(ArcaeaAssetsUpdater.songlist_info, "w") as file:
+                file.write(json.dumps(songlist))
+
+
+    @staticmethod
     async def unzip_file():
         zip_file = ZipFile(path.join(
             ArcaeaAssetsUpdater.work_path, f"arcaea_{ArcaeaAssetsUpdater.get_local_version_info()}.apk"))
@@ -65,6 +84,7 @@ class ArcaeaAssetsUpdater:
         for f in file_list:
             if f.startswith("assets"):
                 zip_file.extract(f, ArcaeaAssetsUpdater.work_path)
+        await ArcaeaAssetsUpdater.update_songlist()
         return True
 
     @staticmethod

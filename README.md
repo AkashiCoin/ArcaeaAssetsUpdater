@@ -1,6 +1,10 @@
 # ArcaeaAssetsUpdater
 An api server that provides auto updates of static resources for nonebot-plugin-arcaea.
 
+## Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/AkashiCoin/ArcaeaAssetsUpdater)
+
 ## How to use ?
 
 ```bash
